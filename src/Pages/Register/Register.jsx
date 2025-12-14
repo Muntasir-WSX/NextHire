@@ -3,6 +3,7 @@ import registerLottie from "../../assets/Lotties/newregister.json";
 import LottieWrapper from "lottie-react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
+import SocialLogin from "../Shared Components/SocialLogin";
 
 const Lottie = LottieWrapper.default || LottieWrapper;
 
@@ -82,6 +83,9 @@ const Register = () => {
                 </button>
               </fieldset>
             </form>
+           <div className="justify-items-center">
+             <SocialLogin></SocialLogin>
+           </div>
 
             <div className="text-center mt-6 text-sm text-gray-600">
               Already have an account?
