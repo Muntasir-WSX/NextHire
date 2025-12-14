@@ -5,7 +5,7 @@ import Footer from "../Pages/Shared Components/Footer";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="7xl mx-auto">
       <NavBar></NavBar>
       <Outlet></Outlet>
       <Footer></Footer>

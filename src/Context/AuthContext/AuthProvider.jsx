@@ -6,44 +6,43 @@ import { auth } from '../../Firebase/Firebase.init';
 const AuthProvider = ({children}) => {
     const [loading,setLoading] = useState (true);
     const [user,setUser] = useState(null)
-       
-      // Register
-        const createUser = (email,password) =>
-        {
-            return createUserWithEmailAndPassword (auth,email,password)
-        }
+      
+    // Register
+    const createUser = (email,password) =>
+    {
+        setLoading(true);
+        return createUserWithEmailAndPassword (auth,email,password)
+    }
 
-        // SigIn
+    // SigIn
     
-        const SignInUser = (email,password) => {
-          setLoading(true)
-          return signInWithEmailAndPassword(auth,email,password)
-        }
+    const SignInUser = (email,password) => {
+      setLoading(true)
+      return signInWithEmailAndPassword(auth,email,password)
+    }
 
-        // SignOut
+    // SignOut
 
-        const signOutUser = () =>{
-          setLoading(true);
-          return signOut(auth)
-        }
+    const signOutUser = () =>{
+      setLoading(true);
+      return signOut(auth)
+    }
 
-        //
+    // Auth State Observer
 
-      useEffect(()=>{
-          const unSubscribe = onAuthStateChanged(auth, currentUser =>
-            {
-              setUser(currentUser);
-              setLoading(false);
-              console.log('user in the auth state change', currentUser)
+    useEffect(()=>{
+        const unSubscribe = onAuthStateChanged(auth, currentUser =>
+          {
+            setUser(currentUser);
+            setLoading(false);
+            console.log('user in the auth state change', currentUser)
 
-            })
-            return ( ) =>
-            {
-              unSubscribe();
-            }
-      },[])
-
-
+          })
+          return ( ) =>
+          {
+            unSubscribe();
+          }
+    },[])
 
 
     const authInfo = {
@@ -51,14 +50,14 @@ const AuthProvider = ({children}) => {
         user,
         createUser,
         SignInUser,
-        signOut,
+        signOutUser, 
     }
 
 
     return (
-  <AuthContext.Provider value={authInfo}> 
-    {children}
-  </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}> 
+        {children}
+    </AuthContext.Provider>
     );
 };
 
