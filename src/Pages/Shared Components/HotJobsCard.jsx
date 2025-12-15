@@ -10,9 +10,11 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import { SiLinkedin } from "react-icons/si";
+import { Link } from "react-router";
 
 const HotJobsCard = ({ job }) => {
   const {
+    _id,
     title,
     location,
     jobType,
@@ -140,9 +142,9 @@ const HotJobsCard = ({ job }) => {
 
       <div className="flex justify-between items-center mt-6">
         <div className="text-2xl font-bold text-gray-900">{displaySalary}</div>
-        <button className="px-6 py-3 bg-violet-700 hover:bg-violet-800 text-white font-semibold rounded-lg shadow-md transition duration-300">
+        <Link to={`/jobs${_id}`} className="px-6 py-3 bg-violet-700 hover:bg-violet-800 text-white font-semibold rounded-lg shadow-md transition duration-300">
           Apply Now
-        </button>
+        </Link>
       </div>
     </div>
   );
