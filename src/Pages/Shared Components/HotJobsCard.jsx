@@ -90,7 +90,7 @@ const HotJobsCard = ({ job }) => {
         </div>
         <div className="flex items-center space-x-2">
           <FaTag className="w-4 h-4 text-violet-600" />
-          <span>Category : {category}**</span>
+          <span>Category : {category} </span>
         </div>
         <div className="flex items-center space-x-2">
           <FaUser className="w-4 h-4 text-violet-600" />
