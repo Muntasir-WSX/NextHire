@@ -163,4 +163,4 @@ const DetailItem = ({ icon: Icon, label, value, color }) => (
 );
 
 
-export default JobDetails;
+export default JobDetails; 
