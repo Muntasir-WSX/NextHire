@@ -3,10 +3,39 @@ import LottieWrapper from "lottie-react";
 import { motion } from "framer-motion";
 import { FaBriefcase, FaPaperPlane } from "react-icons/fa";
 import jobAddAnimation from "../../src/assets/Lotties/Company employees sharing thoughts and ideas.json"; 
+import UseAuth from "../Hooks/UseAuth";
 
 const Lottie = LottieWrapper.default || LottieWrapper;
 
 const AddJob = () => {
+    const {user} = UseAuth();
+    const handleAddJob = e => {
+        e.prevantDefault();
+        const form = e.target;
+        const formData= new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data);
+
+// Process salary range data
+        const {min, max ,currency, ...newJob} = data;
+        newJob.salaryrange = {min,max,currency}
+       
+
+        //  Process Requirements
+
+        newJob.requirements = newJob.requirements.split(',').map(req => req.trim())
+        console.log(newJob)
+
+
+        // process resoponsibilities
+
+         newJob.responsibilities = newJob.responsibilities.split(',').map(req => req.trim())
+        console.log(newJob)
+
+
+
+
+    }
   return (
     <div className="min-h-screen bg-gray-50/50 py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -54,7 +83,7 @@ const AddJob = () => {
               <FaBriefcase className="text-violet-600" /> Please Add a job
             </h2>
 
-            <form className="space-y-8">
+            <form onSubmit={handleAddJob} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
                 {/* 1. Basic Info Section */}
@@ -76,9 +105,9 @@ const AddJob = () => {
                     <legend className="fieldset-legend font-bold text-violet-700 px-2">Job JobType</legend>
                     <div className="filter flex flex-wrap gap-2">
                       <input className="btn filter-reset" type="radio" name="JobType" aria-label="All" />
-                      <input className="btn" type="radio" name="JobType" aria-label="On-Site" />
-                      <input className="btn" type="radio" name="JobType" aria-label="Hybrid" />
-                      <input className="btn" type="radio" name="JobType" aria-label="Remote" />
+                      <input className="btn" type="radio" name="JobType" value="On-site" aria-label="On-Site" />
+                      <input className="btn" type="radio" name="JobType" value="Hybrid"  aria-label="Hybrid" />
+                      <input className="btn" type="radio" name="JobType" value="Remote"  aria-label="Remote" />
                     </div>
                   </fieldset>
 
@@ -94,6 +123,12 @@ const AddJob = () => {
                       <option>Marketing</option>
                       <option>Development</option>
                       <option>Design</option>
+                      <option>Management</option>
+                      <option>Infrastructure</option>
+                      <option>Quality Assurance</option>
+                      <option>Product Management</option>
+                      <option> E-commerce</option>
+                      <option>IT Support</option>
                     </select>
                   </fieldset>
                 </div>
@@ -119,7 +154,7 @@ const AddJob = () => {
                   <label className="label font-medium">HR Name</label>
                   <input type="text" name="hr_name" className="input input-bordered w-full bg-white" placeholder="Enter your name" />
                   <label className="label font-medium mt-2">HR Email</label>
-                  <input type="email" name="hr_mail" className="input input-bordered w-full bg-white" placeholder="Enter Your Email" />
+                  <input type="email" defaultValue={user.email} name="hr_mail" className="input input-bordered w-full bg-white" placeholder="Enter Your Email" />
                   <div className="mt-8">
                     <label className="label font-medium"> Application deadline </label>
                     <input type="date" className="input input-bordered w-full bg-white" />
