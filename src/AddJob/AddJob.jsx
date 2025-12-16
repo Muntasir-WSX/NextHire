@@ -32,6 +32,8 @@ const AddJob = () => {
          newJob.responsibilities = newJob.responsibilities.split(',').map(req => req.trim())
         console.log(newJob)
 
+        
+
 
 
 
