@@ -147,11 +147,12 @@ const JobApply = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
-                  <input type="tel" name="phone_number" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-violet-500" required />
+                  <input placeholder="+88 01234567911" type="tel" name="phone_number" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-violet-500" required />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">Current Location</label>
-                  <input type="text" name="current_location" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-violet-500" required />
+                  <input placeholder="e,g, Dhaka,Chattogram" type="text" name="current_location" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-violet-500" required />
+                  
                 </div>
               </div>
 
