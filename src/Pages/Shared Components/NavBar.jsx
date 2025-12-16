@@ -7,6 +7,9 @@ import {
   FaSignInAlt,
   FaSignOutAlt,
   FaTachometerAlt,
+  FaPlusCircle,
+  FaHome,
+  FaSearch,
 } from "react-icons/fa";
 
 const NavBar = () => {
@@ -23,8 +26,11 @@ const NavBar = () => {
   };
 
   const navLinks = [
-    { to: "/", label: "Home" },
-    { to: "BrowseJobs", label: "Browse Jobs" },
+    { to: "/", 
+      label: "Home",
+      icon: <FaHome className="inline-block mr-1"></FaHome> 
+    },
+    { to: "BrowseJobs", label: "Browse Jobs", icon: <FaSearch className="inline-block mr-1"></FaSearch> },
   ];
 
   // for applicant links,check roles as well
@@ -43,8 +49,16 @@ const NavBar = () => {
     navLinks.push({
       to: "/addJob",
       label: "Add Job",
-      icon: <FaTachometerAlt className="inline-block mr-1" />,
+      icon: <FaPlusCircle className="inline-block mr-1" />,
     });
+
+    navLinks.push(
+        {
+           to: "/Postedjob",
+      label: "My Posted Job",
+      icon: <FaBriefcase className="inline-block mr-1" />,
+        }
+    )
 }
 
   const links = (
