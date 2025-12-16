@@ -14,8 +14,10 @@ import LocationImageAmsterdam from "../../assets/Images/City4.jpg";
 import LocationImageCopenhagen from "../../assets/Images/City1.jpg";
 import LocationImageBerlin from "../../assets/Images/City3.jpg";
 
-import BlogImage1 from "../../assets/Images/blog1.jpg";
-import BlogImage2 from "../../assets/Images/blog2.jpg";
+import BlogImage1 from "../../assets/Images/blog2.jpg";
+import BlogImage2 from "../../assets/Images/maleblog.jpg";
+import BlogImage3 from "../../assets/Images/blog3.jpg";
+
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -67,41 +69,41 @@ const LocationCard = ({ city, country, count, image, tag }) => (
 const JobsByLocation = () => {
   const locationData = [
     {
-      city: "Paris",
-      country: "France",
+      city: "Chittagong",
+      country: "Bangladesh",
       count: 120,
       image: LocationImageParis,
       tag: "New",
     },
     {
-      city: "London",
-      country: "England",
+      city: "Dhaka",
+      country: "Bangladesh",
       count: 68,
       image: LocationImageLondon,
       tag: "Trending",
     },
     {
-      city: "New York",
-      country: "USA",
+      city: "Mumbai",
+      country: "India",
       count: 90,
       image: LocationImageNewYork,
       tag: "New",
     },
     {
-      city: "Amsterdam",
-      country: "Holland",
+      city: "Karachi",
+      country: "Pakistan",
       count: 86,
       image: LocationImageAmsterdam,
     },
     {
-      city: "Copenhagen",
-      country: "Denmark",
+      city: "Balochistan",
+      country: "Pakistan",
       count: 186,
       image: LocationImageCopenhagen,
     },
     {
-      city: "Berlin",
-      country: "Germany",
+      city: "Riad",
+      country: "KSA",
       count: 92,
       image: LocationImageBerlin,
     },
@@ -191,7 +193,7 @@ const NewsAndBlog = () => {
       date: "06 September",
       author: "Social Media",
       readTime: 5,
-      image: BlogImage1,
+      image: BlogImage3,
       category: "Review",
     },
   ];

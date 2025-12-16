@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaBriefcase, FaPaperPlane } from "react-icons/fa";
 import jobAddAnimation from "../../src/assets/Lotties/Company employees sharing thoughts and ideas.json"; 
 import UseAuth from "../Hooks/UseAuth";
+import Others from "../Pages/Home/Others";
 
 const Lottie = LottieWrapper.default || LottieWrapper;
 
@@ -191,6 +192,9 @@ const AddJob = () => {
             </form>
           </div>
         </motion.div>
+     
+     <Others></Others>
+     
       </div>
     </div>
   );

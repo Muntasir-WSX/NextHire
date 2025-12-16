@@ -4,6 +4,7 @@ import ApplicationStats from "./ApplicationStats";
 import ApplicationsList from "./ApplicationsList";
 import UseAuth from "../../Hooks/UseAuth";
 import { fetchMyApplications } from "../../API/ApplicationsAPI";
+import Others from "../Home/Others";
 
 const MyApllications = () => {
   const { user } = UseAuth();
@@ -101,6 +102,7 @@ const MyApllications = () => {
           </div>
         )}
       </section>
+      <Others></Others>
     </div>
   );
 };
