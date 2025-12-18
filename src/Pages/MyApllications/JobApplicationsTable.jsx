@@ -3,7 +3,7 @@ import { FaLinkedin, FaGithub, FaEye } from "react-icons/fa";
 
 const JobApplicationsTable = ({ application, index }) => {
   const { title, company, company_logo, applicant, status, linkedIn, github } =
-    application;
+    application ;
 
   return (
     <tr className="hover:bg-gray-50 transition-colors border-b border-gray-100">

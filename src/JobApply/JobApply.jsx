@@ -21,17 +21,19 @@ const JobApply = () => {
   const [jobTitle, setJobTitle] = useState("Loading...");
 
  
-  useEffect(() => {
-    fetch(`http://localhost:3000/Jobs/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setJobTitle(data.title || "Unknown Job");
-      })
-      .catch(err => {
-        console.error(err);
-        setJobTitle("Error loading job info");
-      });
-  }, [id]);
+ useEffect(() => {
+  // ১. নিশ্চিত করুন 'jobs' ছোট হাতের (আপনার ব্যাকএন্ড রাউট অনুযায়ী)
+  fetch(`http://localhost:3000/jobs/${id}`) 
+    .then(res => res.json())
+    .then(data => {
+      // ২. ডাটাবেজ অনুযায়ী 'title' ফিল্ড ব্যবহার করুন
+      setJobTitle(data.title || data.jobTitle || "Unknown Job");
+    })
+    .catch(err => {
+      console.error("Fetch Error:", err);
+      setJobTitle("Error loading job info");
+    });
+}, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

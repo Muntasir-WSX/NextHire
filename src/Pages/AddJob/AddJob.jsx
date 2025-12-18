@@ -131,7 +131,7 @@ const AddJob = () => {
                   <label className="label font-medium">Title</label>
                   <input
                     type="text"
-                    name="jobTitle"
+                    name="title"
                     className="input input-bordered w-full"
                     placeholder="Job Title"
                     required
