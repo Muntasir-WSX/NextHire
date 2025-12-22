@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 
+
 const googleAuthProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({children}) => {
@@ -36,27 +37,30 @@ const AuthProvider = ({children}) => {
 
     // Auth State Observer
 
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth, currentUser =>
-          {
-            setUser(currentUser);
-            setLoading(false);
-            if (currentUser?.email){
-              const userData = {email: currentUser.email};
-              axios.post('http://localhost:3000/jwt', userData).then(res => {
-                console.log("Token After JWT",res.data)
-                const token = res.data.token;
-                localStorage.setItem("token", token);
-              }).catch (error => console.log(error))
-            }
-            console.log('user in the auth state change', currentUser)
+   useEffect(() => {
+  const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+    setLoading(false);
 
-          })
-          return ( ) =>
-          {
-            unSubscribe();
-          }
-    },[]);
+    if (currentUser?.email) {
+      const userData = { email: currentUser.email };
+      
+      // 1. Correct syntax for withCredentials (it's the 3rd argument in POST)
+      axios.post('http://localhost:3000/jwt', userData, { withCredentials: true })
+        .then((res) => {
+          console.log("Cookie has been set by server:", res.data);
+         
+        })
+        .catch((error) => console.log("JWT Error:", error));
+    }
+    
+    console.log('user in the auth state change', currentUser);
+  });
+
+  return () => {
+    unSubscribe();
+  };
+}, []);
 
 
     //Google use
