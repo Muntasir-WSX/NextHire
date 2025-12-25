@@ -2,11 +2,20 @@ import React, { use } from "react";
 import { Link } from "react-router-dom";
 
 const JobList = ({ jobsCreatedBypromise }) => {
-  const jobs = use(jobsCreatedBypromise);
-   return (
+  // ১. ডাটা লোড হওয়ার আগ পর্যন্ত সেফটি চেক
+  let jobs = [];
+  try {
+    const rawData = use(jobsCreatedBypromise);
+    jobs = Array.isArray(rawData) ? rawData : []; 
+  } catch (err) {
+    console.error("Data loading error", err);
+    jobs = []; // এরর হলে খালি অ্যারে রাখবে যাতে ক্রাশ না করে
+  }
+
+  return (
     <div className="overflow-x-auto w-full bg-white rounded-xl shadow-md p-6">
       <h2 className="text-3xl font-bold text-violet-800 mb-6">
-        Jobs Created By You: {jobs?.length || 0}
+        Jobs Created By You: {jobs.length} 
       </h2>
 
       <table className="table w-full">

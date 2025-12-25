@@ -1,25 +1,27 @@
-import React, { use } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import HotJobsCard from "../Shared Components/HotJobsCard";
 
-const HotJobs = ({ jobsPromise }) => {
-  const jobs = use(jobsPromise);
-
+// jobsPromise এর বদলে এখন সরাসরি jobs রিসিভ করবে
+const HotJobs = ({ jobs }) => {
   const navigate = useNavigate();
 
+  // নিশ্চিত করা হচ্ছে যে jobs একটি অ্যারে, নাহলে খালি অ্যারে নিবে
   const safeJobs = Array.isArray(jobs) ? jobs : [];
 
+  // প্রথম ৮টি জব দেখানোর জন্য
   const trendingJobs = safeJobs.slice(0, 8);
 
   const handleViewAll = () => {
     navigate("/browsejobs");
   };
 
+  // যদি ডেটা অ্যারে না হয় বা কোনো সমস্যা থাকে
   if (!Array.isArray(jobs)) {
     return (
       <div className="py-16 text-center">
         <p className="text-red-500 font-medium">
-          Unable to load jobs. Please check your login or connection.
+          Unable to load jobs. Please check your connection.
         </p>
       </div>
     );
@@ -38,12 +40,14 @@ const HotJobs = ({ jobsPromise }) => {
           </p>
         </div>
 
+        {/* জব লিস্ট গ্রিড */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {trendingJobs.map((job) => (
             <HotJobsCard key={job._id} job={job} />
           ))}
         </div>
 
+        {/* View All বাটন */}
         {safeJobs.length > 8 && (
           <div className="text-center mt-12">
             <button
@@ -55,6 +59,7 @@ const HotJobs = ({ jobsPromise }) => {
           </div>
         )}
 
+        {/* যদি কোনো জব না থাকে */}
         {safeJobs.length === 0 && (
           <p className="text-center text-gray-500 mt-10">
             No jobs available right now.

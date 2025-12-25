@@ -20,9 +20,9 @@ const AddJob = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-   
     const { min, max, currency, ...newJob } = data;
 
+    // স্যালারি ভ্যালিডেশন
     if (Number(min) < 0 || Number(max) < 0) {
       return Swal.fire("Error", "Salary cannot be negative!", "error");
     }
@@ -31,6 +31,7 @@ const AddJob = () => {
       return Swal.fire("Error", "Min salary can't be more than Max salary!", "error");
     }
 
+    // ডেডলাইন ভ্যালিডেশন
     const selectedDate = new Date(data.deadline);
     const today = new Date();
     today.setHours(0, 0, 0, 0); 
@@ -38,23 +39,26 @@ const AddJob = () => {
       return Swal.fire("Error", "Deadline cannot be in the past!", "error");
     }
 
-  
+    // ডাটা ফরম্যাটিং
     newJob.salaryRange = { 
         min: parseInt(min), 
         max: parseInt(max), 
         currency 
     };
 
-   
     newJob.requirements = data.requirements.split(",").map((req) => req.trim());
     newJob.responsibilities = data.responsibilities.split(",").map((res) => res.trim());
     newJob.status = "active";
 
     setLoading(true);
 
-  
+    // ফিক্সড: URL-এ https:// এবং credentials যোগ করা হয়েছে
     axios
-      .post("http://localhost:3000/jobs", newJob)
+      .post(
+        "https://next-hire-server-steel.vercel.app/jobs", 
+        newJob,
+        { withCredentials: true } // সার্ভারে কুকি/টোকেন পাঠানোর জন্য এটি জরুরি
+      )
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({
@@ -67,11 +71,11 @@ const AddJob = () => {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Post Job Error:", error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Something went wrong! Please try again.",
+          text: error.response?.data?.message || "Something went wrong! Please try again.",
           confirmButtonColor: "#ef4444",
         });
       })

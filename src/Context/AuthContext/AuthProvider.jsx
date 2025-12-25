@@ -16,40 +16,43 @@ const googleAuthProvider = new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+
+    // --- BASE URL ---
+    // URL এর শুরুতে https:// থাকতে হবে এবং শেষে / রাখা যাবে না
+    const API_BASE_URL = 'https://next-hire-server-orb4qyqop-alimuntasir2001-gmailcoms-projects.vercel.app';
       
-    // Register
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    // SignIn
     const SignInUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-   
     const signOutUser = () => {
         setLoading(true);
         return signOut(auth).then(() => {
-            
-            axios.post('http://localhost:3000/logout', {}, { withCredentials: true })
+            // Logout এ baseUrl ব্যবহার করা হয়েছে
+            axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true })
                 .then(() => {
                     console.log("Logged out and cookie cleared");
                     setUser(null);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error("Logout error", err);
                     setLoading(false);
                 });
         });
     }
 
-    // Google SignIn
     const signInWithGoogle = () => {
         setLoading(true);
         return signInWithPopup(auth, googleAuthProvider);
     }
 
-    // Auth State Observer
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -57,8 +60,8 @@ const AuthProvider = ({children}) => {
             if (currentUser?.email) {
                 const userData = { email: currentUser.email };
                 
-               
-                axios.post('http://localhost:3000/jwt', userData, { withCredentials: true })
+                // URL সংশোধন: https:// যোগ করা হয়েছে
+                axios.post(`${API_BASE_URL}/jwt`, userData, { withCredentials: true })
                     .then((res) => {
                         console.log("Cookie response from server:", res.data);
                         setLoading(false); 
@@ -68,26 +71,17 @@ const AuthProvider = ({children}) => {
                         setLoading(false);
                     });
             } else {
-               
-                setLoading(false);
+                // ইউজার না থাকলে লগআউট এপিআই কল করা ভালো
+                axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true })
+                    .then(() => setLoading(false))
+                    .catch(() => setLoading(false));
             }
-            
-            console.log('Current User Status:', currentUser);
         });
 
-        return () => {
-            unSubscribe();
-        };
+        return () => unSubscribe();
     }, []);
 
-    const authInfo = {
-        loading,
-        user,
-        createUser,
-        SignInUser,
-        signInWithGoogle,
-        signOutUser,
-    }
+    const authInfo = { loading, user, createUser, SignInUser, signInWithGoogle, signOutUser }
 
     return (
         <AuthContext.Provider value={authInfo}> 
