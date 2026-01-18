@@ -16,7 +16,7 @@ const JobApply = () => {
   const [jobTitle, setJobTitle] = useState("Loading...");
 
   useEffect(() => {
-    
+    // জব ডিটেইলস নিয়ে আসা
     fetch(`https://next-hire-server-steel.vercel.app/jobs/${id}`, {
       credentials: "include"
     })
@@ -46,8 +46,9 @@ const JobApply = () => {
       return;
     }
 
+    // ব্যাকএন্ডের কুয়েরি ফিল্ডের সাথে মিল রেখে 'jobId' ব্যবহার করা হয়েছে
     const application = {
-      jobId: id,
+      jobId: id, 
       applicant: user.email,
       linkedIn: form.linkedIn_url.value,
       github: form.github_url.value,
@@ -59,6 +60,7 @@ const JobApply = () => {
     };
 
     try {
+      // POST রিকোয়েস্টে withCredentials অবশ্যই দিতে হবে টোকেন পাঠানোর জন্য
       const res = await axios.post(
         "https://next-hire-server-steel.vercel.app/applications",
         application,
@@ -72,7 +74,7 @@ const JobApply = () => {
           text: `You have successfully applied for ${jobTitle}`,
           confirmButtonColor: "#6D28D9",
         }).then(() => {
-          navigate("/dashboard"); // রাউট চেক করে নিস
+          navigate("/myApplications"); // তোমার প্রোফাইল বা ড্যাশবোর্ড রাউট অনুযায়ী চেঞ্জ করো
         });
       }
     } catch (error) {
@@ -105,6 +107,7 @@ const JobApply = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Left Side Images and Tips */}
           <div className="lg:col-span-1 space-y-8">
             <div className="grid grid-cols-3 lg:grid-cols-1 gap-4">
               <img src={Engineer1} className="w-full h-32 object-cover rounded-xl border-2 border-violet-200" alt="img" />
@@ -123,6 +126,7 @@ const JobApply = () => {
             </div>
           </div>
 
+          {/* Application Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-2xl border-t-4 border-violet-600 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
